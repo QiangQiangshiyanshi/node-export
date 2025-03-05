@@ -45,10 +45,10 @@ if systemctl is-active --quiet node_exporter; then
     # 发送飞书通知（包含主机名和IP）
     curl -X POST -H "Content-Type: application/json" \
          -d '{"msg_type":"text","content":{"text":"Node Exporter 成功","hostname":"'"$(hostname)"'","IP address":"'"$(hostname -I | awk '{print $1}')"'"}}' \
-          https://open.feishu.cn/open-apis/bot/v2/hook/42366247-c6a4-4f28-8d4f-97e8f415dd5c
+          https://janzlz0n1f.feishu.cn/base/automation/webhook/event/PjcAa3QvHwokpMhUpsOcUQsCnKe
 else
     curl -X POST -H "Content-Type: application/json" \
          -d '{"msg_type":"text","content":{"text":"Node Exporter 失败","hostname":"'"$(hostname)"'","IP address":"'"$(hostname -I | awk '{print $1}')"'"}}' \
-          https://open.feishu.cn/open-apis/bot/v2/hook/42366247-c6a4-4f28-8d4f-97e8f415dd5c
+          https://janzlz0n1f.feishu.cn/base/automation/webhook/event/PjcAa3QvHwokpMhUpsOcUQsCnKe
     echo "Node Exporter 安装失败"
 fi
