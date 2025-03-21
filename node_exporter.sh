@@ -50,12 +50,16 @@ ExecStart=/usr/local/bin/node_exporter \
 [Install]
 WantedBy=multi-user.target
 EOF
+
 # 重新加载systemd以读取新的node_exporter服务
-systemctl daemon-reload
-# 启用node_exporter服务
-systemctl enable node_exporter
-# 启动node_exporter服务
-systemctl start node_exporter
+sudo chmod 777 /usr/local/bin/node_exporter
+ls -ld /usr/local/bin/node_exporter
+sudo systemctl daemon-reload
+sudo systemctl start node_exporter
+sudo systemctl enable node_exporter
+sudo systemctl status node_exporter
+
+
 if systemctl is-active --quiet node_exporter; then
     echo "Node Exporter 安装成功并正在运行"
     # 获取IP地址（排除回环地址）
