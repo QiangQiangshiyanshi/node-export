@@ -1,9 +1,11 @@
 #!/bin/bash
+#node-export判断
+
 
 # 端口判断
 # 检查 9100 端口是否已经开放（精确匹配）
 if sudo ss -tuln | grep "LISTEN.*:9100"; then
-    echo "端口 9100 已开放，脚本终止"
+    echo "端口 9100 已被监听，脚本终止"
     exit 0
 fi
 
