@@ -1,14 +1,14 @@
 #!/bin/bash
 
 # 端口判断
-echo "检查 9100 端口是否已经开放（精确匹配"
+echo " ⚠️  检查 9100 端口是否已经开放（精确匹配)"
 if sudo ss -tulnp | grep "LISTEN.*:9100"; then
     echo "端口 9100 已被监听，脚本终止"
     exit 0
 fi
 
 # 防火墙端口
-# 检查firewalld是否正在运行
+echo " ⚠️  检查firewalld是否正在运行"
 if systemctl is-active --quiet firewalld; then
     # 检查9100端口是否已开放
     if ! sudo firewall-cmd --list-ports | grep -q "9100/tcp"; then
@@ -21,6 +21,7 @@ else
     echo "firewalld未运行，跳过端口开放操作"
 fi
 
+echo "⬇️⬇️⬇️⬇️⬇️⬇️⬇️⬇️⬇️⬇️"
 
 # 设置node_exporter版本
 NODE_EXPORTER_VERSION="1.7.0"
@@ -57,15 +58,20 @@ ExecStart=/usr/local/bin/node_exporter \
 WantedBy=multi-user.target
 EOF
 
+echo "⬆️⬆️⬆️⬆️⬆️⬆️⬆️⬆️⬆️⬆️"
+
 # 重新加载systemd以读取新的node_exporter服务
+echo " ⚠️  添加权限"
 sudo chmod 777 /usr/local/bin/node_exporter
 ls -ld /usr/local/bin/node_exporter
+
+echo " ⚠️  状态检查"
 sudo systemctl daemon-reload
 sudo systemctl start node_exporter
 sudo systemctl enable node_exporter
 
 if systemctl is-active --quiet node_exporter; then
-    echo "Node Exporter 安装成功并正在运行"
+    echo "✅   Node Exporter 安装成功并正在运行"
     # 获取IP地址（排除回环地址）
     # 发送飞书通知（包含主机名和IP）
     curl -X POST -H "Content-Type: application/json" \
@@ -75,5 +81,5 @@ else
     curl -X POST -H "Content-Type: application/json" \
          -d '{"msg_type":"text","content":{"text":"Node Exporter 失败","hostname":"'"$(hostname)"'","IP address":"'"$(hostname -I | awk '{print $1}')"'"}}' \
           https://janzlz0n1f.feishu.cn/base/automation/webhook/event/PjcAa3QvHwokpMhUpsOcUQsCnKe
-    echo "Node Exporter 安装失败"
+    echo "❌  Node Exporter 安装失败"
 fi
