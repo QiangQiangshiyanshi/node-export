@@ -21,7 +21,7 @@ else
     echo "firewalld未运行，跳过端口开放操作"
 fi
 
-echo "⬇️⬇️⬇️⬇️⬇️⬇️⬇️⬇️⬇️⬇️"
+echo "⬇️  ⬇️  ⬇️  ⬇️  ⬇️  ⬇️  ⬇️  ⬇️  ⬇️  ⬇️"
 
 # 设置node_exporter版本
 NODE_EXPORTER_VERSION="1.7.0"
@@ -58,7 +58,7 @@ ExecStart=/usr/local/bin/node_exporter \
 WantedBy=multi-user.target
 EOF
 
-echo "⬆️⬆️⬆️⬆️⬆️⬆️⬆️⬆️⬆️⬆️"
+echo "⬆️  ⬆️  ⬆️  ⬆️  ⬆️  ⬆️  ⬆️  ⬆️  ⬆️  ⬆️"
 
 # 重新加载systemd以读取新的node_exporter服务
 echo " ⚠️  添加权限"
