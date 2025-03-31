@@ -63,8 +63,6 @@ ls -ld /usr/local/bin/node_exporter
 sudo systemctl daemon-reload
 sudo systemctl start node_exporter
 sudo systemctl enable node_exporter
-sudo systemctl status node_exporter
-
 
 if systemctl is-active --quiet node_exporter; then
     echo "Node Exporter 安装成功并正在运行"
