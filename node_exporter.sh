@@ -67,7 +67,7 @@ mkdir -p "${DOWNLOAD_DIR}"
 
 cd "${DOWNLOAD_DIR}"
 
-wget -q --show-progress \
+wget \
 "https://github.com/prometheus/node_exporter/releases/download/v${NODE_EXPORTER_VERSION}/node_exporter-${NODE_EXPORTER_VERSION}.${NODE_ARCH}.tar.gz"
 
 # ========================
